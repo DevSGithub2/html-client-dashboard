@@ -11,9 +11,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
-      background-color: #f5f5f5;
+      background-color: #f0f2f5;
     }
 
     .dashboard-container {
@@ -22,32 +22,55 @@
       border-radius: 10px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       width: 90%;
-      max-width: 600px;
-      text-align: center;
+      max-width: 900px;
     }
 
     h1 {
       color: #1778e0;
       font-size: 2em;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .welcome-message {
       font-size: 18px;
       color: #333;
-      margin: 20px 0;
-      text-transform: capitalize;
+      text-align: center;
+      margin-bottom: 30px;
     }
 
     #details {
       font-size: 16px;
       color: #555;
-      margin: 10px 0;
-      line-height: 1.5;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
-    .button-container {
-      margin-top: 20px;
+    .stats-container, .activity-container, .actions-container {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .card h3 {
+      color: #1778e0;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 14px;
     }
 
     .logout-button {
@@ -64,6 +87,11 @@
     .logout-button:hover {
       background-color: #0d3a5e;
     }
+
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -71,8 +99,54 @@
     <h1>Dashboard</h1>
     <div class="welcome-message">
       <p id="welcomeMessage">Welcome, User!</p>
-      <div id="details"></div>
     </div>
+    <div id="details"></div>
+    
+    <!-- Account Overview -->
+    <div class="stats-container">
+      <div class="card">
+        <h3>Account Balance</h3>
+        <p id="accountBalance">₹10,000</p>
+      </div>
+      <div class="card">
+        <h3>Recent Transactions</h3>
+        <p>Last: ₹500 on 10 Nov</p>
+        <p>Last 30 Days: ₹5,000</p>
+      </div>
+      <div class="card">
+        <h3>Account Status</h3>
+        <p>Active</p>
+      </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="activity-container">
+      <div class="card">
+        <h3>Recent Activity</h3>
+        <p>1. Payment of ₹500 - 10 Nov</p>
+        <p>2. Received ₹1,000 - 5 Nov</p>
+        <p>3. Payment of ₹2,000 - 1 Nov</p>
+      </div>
+      <div class="card">
+        <h3>Messages</h3>
+        <p>No new messages</p>
+      </div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="actions-container">
+      <div class="card">
+        <h3>Quick Actions</h3>
+        <button class="logout-button" onclick="alert('Function not available')">Transfer Funds</button>
+        <button class="logout-button" onclick="alert('Function not available')">Add Beneficiary</button>
+      </div>
+      <div class="card">
+        <h3>Settings</h3>
+        <p><a href="#" onclick="alert('Function not available')">Change Password</a></p>
+        <p><a href="#" onclick="alert('Function not available')">Update Profile</a></p>
+      </div>
+    </div>
+
     <div class="button-container">
       <button class="logout-button" onclick="logout()">Logout</button>
     </div>
@@ -85,7 +159,7 @@
     // Check if user data is present, else redirect to login page
     if (loggedInUser && loggedInUser.email) {
       document.getElementById("welcomeMessage").textContent = `Welcome, ${loggedInUser.firstName} ${loggedInUser.lastName}!`;
-      document.getElementById("details").textContent = `Your Details:\nEmail: ${loggedInUser.email}\nAadhar No: ${loggedInUser.aadhar}`;
+      document.getElementById("details").innerHTML = `Your Details:<br>Email: ${loggedInUser.email}<br>Aadhar No: ${loggedInUser.aadhar}`;
     } else {
       // Redirect to login page if no user is found in localStorage
       window.location.href = "client-login.html";
