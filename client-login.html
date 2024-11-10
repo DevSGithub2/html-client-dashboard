@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Login - CVMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f2f5f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Container Styling */
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      width: 340px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    /* Heading */
+    h2 {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    /* Input Group */
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-weight: 500;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      background-color: #fafbfc;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #0077cc;
+      outline: none;
+    }
+
+    /* Checkbox and Link Group */
+    .checkbox-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .checkbox-group input {
+      margin-right: 5px;
+    }
+
+    /* Button Styling */
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      color: #ffffff;
+      background-color: #0077cc;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    /* Links Styling */
+    .links {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-top: 15px;
+      color: #0077cc;
+    }
+
+    .links a {
+      color: #0077cc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #005fa3;
+    }
+
+    /* Error Message */
+    #clientErrorMessage {
+      color: #d93025;
+      margin-top: 15px;
+      font-size: 14px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Client Login Page -->
+  <div class="container">
+    <h2>Client Login</h2>
+    <form id="clientLoginForm">
+      <div class="input-group">
+        <label for="clientUsername">Email</label>
+        <input type="text" id="clientUsername" name="username" required />
+      </div>
+      <div class="input-group">
+        <label for="clientPassword">Password</label>
+        <input type="password" id="clientPassword" name="password" required />
+      </div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="clientRememberMe" /> Remember Me</label>
+        <a href="#">Forgot Password?</a>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <div class="links">
+      <a href="client-signup.html">Not a member? Sign Up</a>
+      <a href="index.html">Back to Main</a>
+    </div>
+    <div id="clientErrorMessage" class="error-message">Invalid email or password.</div>
+  </div>
+
+  <script>
+    document.getElementById("clientLoginForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+  
+      const savedUsers = JSON.parse(localStorage.getItem("savedUsers")) || [];
+      const username = document.getElementById("clientUsername").value;
+      const password = document.getElementById("clientPassword").value;
+  
+      const foundUser = savedUsers.find(user => user.email === username && user.password === password);
+  
+      if (foundUser) {
+        localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
+        window.location.href = "dashboard.html";
+      } else {
+        document.getElementById("clientErrorMessage").style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

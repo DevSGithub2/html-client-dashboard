@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Child Vaccination Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-image: url('CVS_BG-2.jpeg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .nav-menu {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-menu a {
+      color: #fff;
+      text-decoration: none;
+      background-color: #ff9100;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      background-color: #c06605;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      width: 280px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 25px;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #0077cc;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin-top: 10px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Menu -->
+  <div class="nav-menu">
+    <a href="about-us.html">About Us</a>
+    <a href="contact-us.html">Contact Info</a>
+    <a href="why-us.html">Why Us</a>
+  </div>
+
+  <!-- Main Page -->
+  <div class="container">
+    <h1>Welcome to CVMS</h1>
+    <button onclick="location.href='client-login.html'">Client Login</button>
+    <button onclick="location.href='staff-login.html'">Staff Login</button>
+  </div>
+
+</body>
+</html>

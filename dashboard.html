@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+
+    .dashboard-container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #1778e0;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .welcome-message {
+      font-size: 18px;
+      color: #333;
+      margin: 20px 0;
+      text-transform: capitalize;
+    }
+
+    #details {
+      font-size: 16px;
+      color: #555;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    .logout-button {
+      padding: 12px 24px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #1778e0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #0d3a5e;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Dashboard</h1>
+    <div class="welcome-message">
+      <p id="welcomeMessage">Welcome, User!</p>
+      <div id="details"></div>
+    </div>
+    <div class="button-container">
+      <button class="logout-button" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve the logged-in user's details from localStorage
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    // Check if user data is present, else redirect to login page
+    if (loggedInUser && loggedInUser.email) {
+      document.getElementById("welcomeMessage").textContent = `Welcome, ${loggedInUser.firstName} ${loggedInUser.lastName}!`;
+      document.getElementById("details").textContent = `Your Details:\nEmail: ${loggedInUser.email}\nAadhar No: ${loggedInUser.aadhar}`;
+    } else {
+      // Redirect to login page if no user is found in localStorage
+      window.location.href = "client-login.html";
+    }
+
+    // Logout function to clear user data and redirect to login page
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "client-login.html";
+    }
+  </script>
+</body>
+</html>

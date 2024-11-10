@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - CVMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f2f5f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .signup-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h2 {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .error-message {
+      color: #e63946;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-weight: 500;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      background-color: #fafbfc;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #0077cc;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      color: #ffffff;
+      background-color: #0077cc;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .links a {
+      color: #0077cc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Sign Up</h2>
+    <div class="error-message" id="errorMessage"></div>
+    <form id="signupForm">
+      <div class="input-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" required />
+      </div>
+      <div class="input-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" required />
+      </div>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div class="input-group">
+        <label for="aadhar">Aadhar Card</label>
+        <input type="text" id="aadhar" name="aadhar" required maxlength="12" pattern="\d{12}" />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required minlength="8" />
+      </div>
+      <div class="input-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required />
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="links">
+      <a href="client-login.html">Already a member? Login here</a>
+      <a href="index.html">Back to Main</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const errorMessage = document.getElementById("errorMessage");
+      errorMessage.style.display = "none"; // Hide error message initially
+
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const aadhar = document.getElementById("aadhar").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      // Basic Validations
+      if (!firstName || !lastName || !email || !aadhar || !password || !confirmPassword) {
+        showError("Please fill in all fields.");
+        return;
+      }
+      if (aadhar.length !== 12 || isNaN(aadhar)) {
+        showError("Aadhar number must be 12 digits.");
+        return;
+      }
+      if (password !== confirmPassword) {
+        showError("Passwords do not match.");
+        return;
+      }
+
+      const savedUsers = JSON.parse(localStorage.getItem("savedUsers")) || [];
+      const isDuplicateUser = savedUsers.some(user => user.email === email || user.aadhar === aadhar);
+
+      if (isDuplicateUser) {
+        showError("A user with this email or Aadhar number already exists.");
+        return;
+      }
+
+      const payload = { firstName, lastName, email, aadhar, password };
+      savedUsers.push(payload);
+      localStorage.setItem("savedUsers", JSON.stringify(savedUsers));
+      alert("User Registered Successfully!");
+      window.location.href = "client-login.html";
+    });
+
+    function showError(message) {
+      const errorMessage = document.getElementById("errorMessage");
+      errorMessage.textContent = message;
+      errorMessage.style.display = "block";
+    }
+  </script>
+</body>
+</html>
